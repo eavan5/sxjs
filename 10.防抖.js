@@ -26,14 +26,14 @@ function debounce(fn, wait = 500) {
 // 最终版
 function debounce(fn, wait = 500, immediate = false) {
   let timer
-  return function () {
+  return function (...args) {
     clearTimeout(timer)
     if (immediate) {
       immediate = false
-      fn.apply(this, arguments)
+      fn.apply(this, args)
       timer = setTimeout(() => immediate = true, wait)
     } else {
-      timer = setTimeout(() => fn.apply(this, arguments), wait)
+      timer = setTimeout(() => fn.apply(this, args), wait)
     }
   }
 }
