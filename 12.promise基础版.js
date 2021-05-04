@@ -5,13 +5,19 @@ class MyPromise {
     this.onRejectedCB = []
     this.value = ''
     this.reason = ''
-    executor(resolve.bind(this), reject.bind(this))
+    try {
+      executor(resolve.bind(this), reject.bind(this))
+    } catch (error) {
+      reject(error)
+    }
     function resolve(value) {
+      if (this.state !== 'PENDING') return
       this.state = 'FULFILLED'
       this.value = value
       this.onFulfilledCB.forEach(fn => fn())
     }
     function reject(reason) {
+      if (this.state !== 'PENDING') return
       this.state = 'FULFILLED'
       this.reason = reason
       this.onRejectedCB.forEach(fn => fn())
