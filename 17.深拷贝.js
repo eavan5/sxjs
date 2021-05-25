@@ -7,9 +7,8 @@ function deepClone(target, map = new WeakMap()) {
       resObj[key] = deepClone(target[key], map);
     }
     return resObj
-  } else {
-    return target
   }
+  return target
 }
 
 var a = { a: 1, b: { a } }
